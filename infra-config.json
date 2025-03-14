@@ -1,0 +1,19 @@
+{
+  "$schema": "https://encore.dev/schemas/infra.schema.json",
+  "metadata": {
+    "name": "my-infra",
+    "description": "My infrastructure",
+    "version": "1.0.0"
+  },
+  "sql_servers": [
+    {
+      "host": "encore-db-kes2m4",
+      "databases": {
+        "encore_prisma_test": {
+          "username": "encore_usr",
+          "password": {"$env": "DB_PASSWORD"}
+        }
+      }
+    }
+  ]
+}
