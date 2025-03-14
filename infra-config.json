@@ -9,7 +9,7 @@
     {
       "host": "encore-db-kes2m4",
       "databases": {
-        "encore_prisma_test": {
+        "encore_db": {
           "username": "encore_usr",
           "password": {"$env": "DB_PASSWORD"}
         }

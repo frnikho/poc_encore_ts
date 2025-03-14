@@ -3,7 +3,7 @@ import {SQLDatabase} from "encore.dev/storage/sqldb";
 import { drizzle } from "drizzle-orm/node-postgres";
 import {users} from "./schema";
 
-const db = new SQLDatabase('encore_prisma_test', {
+const db = new SQLDatabase('encore_db', {
   migrations: {
     path: './migrations',
     source: 'drizzle',
