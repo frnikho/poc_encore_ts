@@ -8,7 +8,19 @@ import {drizzle} from "drizzle-orm/node-postgres";
 const db = new SQLDatabase('encore_db');
 export const orm = drizzle(db.connectionString);
 
-export const get = api({expose: true, auth: false, method: 'GET'}, async () => {
+interface Response {
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+    password: string;
+  }[];
+}
+
+export const get = api({expose: true, auth: false, method: 'GET'},
+  async (): Promise<Response> => {
 
   const newUser = await orm.insert(user)
     .values({
@@ -21,5 +33,9 @@ export const get = api({expose: true, auth: false, method: 'GET'}, async () => {
 
   log.debug("createdUser", newUser);
 
-  return orm.select().from(user)
+  const users = await orm.select().from(user);
+
+  return {
+    data: users
+  }
 });
