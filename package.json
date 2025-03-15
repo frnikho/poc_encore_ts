@@ -6,6 +6,7 @@
   "license": "MPL-2.0",
   "type": "module",
   "scripts": {
+    "migrate": "drizzle-kit migrate",
     "test": "vitest"
   },
   "devDependencies": {
