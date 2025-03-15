@@ -7,7 +7,7 @@
   },
   "sql_servers": [
     {
-      "host": "encore-db-kes2m4",
+      "host": "encore-db-kes2m4:5432",
       "databases": {
         "encore_db": {
           "username": "encore_usr",

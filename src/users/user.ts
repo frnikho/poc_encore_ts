@@ -1,9 +1,12 @@
 import {api} from "encore.dev/api";
-import {SQLDatabase} from "encore.dev/storage/sqldb";
-import { drizzle } from "drizzle-orm/node-postgres";
 import {createId, user} from "./user.schema";
-import {orm} from "../../db";
 import log from "encore.dev/log";
+
+import {SQLDatabase} from "encore.dev/storage/sqldb";
+import {drizzle} from "drizzle-orm/node-postgres";
+
+const db = new SQLDatabase('encore_db');
+export const orm = drizzle(db.connectionString);
 
 export const get = api({expose: true, auth: false, method: 'GET'}, async () => {
 
