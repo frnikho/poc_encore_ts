@@ -21,6 +21,6 @@ export const user = p.pgTable("users", {
   lastname: p.text().notNull(),
   firstname: p.text().notNull(),
   password: p.text().notNull(),
-  updated_by: varchar().references((): AnyPgColumn => user.id, {onDelete: "set null"}).default(null),
+  updated_by: varchar().references((): AnyPgColumn => user.id, {onDelete: "set null"}).default(''),
   ...datesFields,
 });

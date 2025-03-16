@@ -15,7 +15,6 @@ interface Response {
     email: string;
     firstname: string;
     lastname: string;
-    password: string;
   }[];
 }
 
@@ -33,7 +32,13 @@ export const get = api({expose: true, auth: false, method: 'GET'},
 
   log.debug("createdUser", newUser);
 
-  const users = await orm.select().from(user);
+  const users = await orm.select({
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    name: user.name,
+    id: user.id,
+  }).from(user);
 
   return {
     data: users
