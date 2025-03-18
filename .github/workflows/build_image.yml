@@ -2,8 +2,8 @@ name: "Build, Push and Deploy Docker Image"
 
 on:
   push:
-    tags:
-      - '*.*.*'
+    branches:
+      - master
 
 permissions:
   contents: read

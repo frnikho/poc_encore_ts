@@ -16,6 +16,25 @@
       }
     }
   ],
+  "pubsub": [
+    {
+      "type": "nsq",
+      "hosts": "nsq:4150",
+      "topics": {
+        "login": {
+          "name": "login",
+          "subscriptions": {
+            "register_history": {
+              "name": "register_history"
+            },
+            "login_history": {
+              "name": "login_history"
+            }
+          }
+        }
+      }
+    }
+  ],
   "secrets": {
     "REDIS_URL": {
       "$env": "REDIS_URL"
