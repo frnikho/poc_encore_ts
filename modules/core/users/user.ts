@@ -51,3 +51,16 @@ export const create_user_job = api({}, async (req: CreateUserJob) => {
   log.debug(`Creating users from batch.... (${req.users.length})`);
   return orm.insert(user).values(req.users).returning();
 })
+
+function timeout(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const test = api({expose: true, method: 'POST', path: '/user.test'}, async () => {
+  log.debug("Starting blocking test");
+  await timeout(10000)
+  log.debug("Finish blocking test");
+  return {
+    done: true
+  }
+})
