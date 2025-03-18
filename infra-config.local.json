@@ -1,0 +1,41 @@
+{
+  "$schema": "https://encore.dev/schemas/infra.schema.json",
+  "metadata": {
+    "name": "my-infra",
+    "description": "My infrastructure",
+    "version": "1.0.0"
+  },
+  "sql_servers": [
+    {
+      "host": "db:5432",
+      "databases": {
+        "encore_db": {
+          "username": "encore_usr",
+          "password": "encore_pwd"
+        }
+      }
+    }
+  ],
+  "pubsub": [
+    {
+      "type": "nsq",
+      "hosts": "nsqd:4150",
+      "topics": {
+        "login": {
+          "name": "login",
+          "subscriptions": {
+            "login_history": {
+              "name": "login_history"
+            }
+          }
+        },
+        "register": {
+          "name": "register"
+        }
+      }
+    }
+  ],
+  "secrets": {
+    "REDIS_URL": "redis://cache:6379/0"
+  }
+}

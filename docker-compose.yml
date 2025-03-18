@@ -1,5 +1,56 @@
 services:
+  db:
+    container_name: encore_db
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'encore_usr'
+      POSTGRES_PASSWORD: 'encore_pwd'
+      POSTGRES_DB: 'encore_db'
+  migration:
+    restart: no
+    build:
+      dockerfile: ./migration.Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://encore_usr:encore_pwd@db:5432/encore_db
+    depends_on:
+      - db
   cache:
     image: valkey/valkey:8.1
     ports:
       - "6379:6379"
+  api:
+    image: "exemple_encore"
+    ports:
+      - '8080:8080'
+    environment:
+      - REDIS_URL=redis://cache:6379/0
+    depends_on:
+      - cache
+      - db
+
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd
+    ports:
+      - "4160"
+      - "4161"
+  nsqd:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4150"
+      - "4151"
+  nsqadmin:
+    image: nsqio/nsq
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4171"
+
+volumes:
+  db_data:

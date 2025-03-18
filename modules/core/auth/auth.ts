@@ -11,17 +11,17 @@ import {createCode, hash, verify} from "@utils/secret";
 import {setCookie} from "@utils/cookie";
 import {findUserByEmail} from "../users/user.service";
 import {secret} from "encore.dev/config";
-import {cache} from "@utils/cache";
 import {createId} from "@utils/db";
 import { users } from "~encore/clients";
 import log from "encore.dev/log";
+import Redis from "ioredis";
 
-export const client = cache(secret("REDIS_URL"));
+const redis_url = secret("REDIS_URL")
+const client = new Redis(redis_url())
 
 export const login = api(
   {method: 'POST', expose: true, path: '/auth/login'}, async (req: LoginRequest): Promise<LoginResponse> => {
   const user = await findUserByEmail(req.email);
-
   if (!await verify(req.password, user.password)) {
     await logins.publish({message: 'Invalid password', status: 'failed', userId: user.id});
     throw new APIError(ErrCode.InvalidArgument, "Invalid password");
