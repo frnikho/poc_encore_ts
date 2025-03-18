@@ -24,13 +24,13 @@
         "login": {
           "name": "login",
           "subscriptions": {
-            "register_history": {
-              "name": "register_history"
-            },
             "login_history": {
               "name": "login_history"
             }
           }
+        },
+        "register": {
+          "name": "register",
         }
       }
     }

@@ -41,7 +41,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: "/home/runner/.encore/bin/encore build docker $backend_image --config ./infra-config.json"
+        run: '/home/runner/.encore/bin/encore build docker $backend_image --config ./infra-config.json --base "oven/bun:1.2.5-slim"'
 
       - name: Tag Docker image
         run: "docker tag $backend_image ghcr.io/${{ github.repository_owner }}/$backend_image:latest"
