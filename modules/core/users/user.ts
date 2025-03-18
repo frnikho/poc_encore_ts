@@ -1,17 +1,12 @@
 import {api} from "encore.dev/api";
-import {createId, user} from "./user.schema";
+import {user} from "./user.schema";
 import log from "encore.dev/log";
-
-import {SQLDatabase} from "encore.dev/storage/sqldb";
-import {drizzle} from "drizzle-orm/node-postgres";
-
-const db = new SQLDatabase('encore_db');
-export const orm = drizzle(db.connectionString);
+import orm from "@utils/encore/db";
+import {createId} from "@utils/db";
 
 interface Response {
   data: {
     id: string;
-    name: string;
     email: string;
     firstname: string;
     lastname: string;
@@ -23,7 +18,6 @@ export const get = api({expose: true, auth: false, method: 'GET'},
 
   const newUser = await orm.insert(user)
     .values({
-      name: "John Doe",
       email: `${createId()}@gmail.com`,
       firstname: "ab",
       lastname: "cd",
@@ -36,7 +30,6 @@ export const get = api({expose: true, auth: false, method: 'GET'},
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    name: user.name,
     id: user.id,
   }).from(user);
 
@@ -44,3 +37,17 @@ export const get = api({expose: true, auth: false, method: 'GET'},
     data: users
   }
 });
+
+interface CreateUserJob {
+  users: {
+    email: string;
+    firstname: string;
+    lastname: string;
+    password: string;
+  }[];
+}
+
+export const create_user_job = api({}, async (req: CreateUserJob) => {
+  log.debug(`Creating users from batch.... (${req.users.length})`);
+  return orm.insert(user).values(req.users).returning();
+})

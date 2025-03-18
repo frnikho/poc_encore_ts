@@ -5,9 +5,10 @@
     "lib": ["ES2022"],
     "target": "ES2022",
     "module": "ES2022",
-    "types": ["node"],
+    "types": ["node", "bun-types"],
     "paths": {
-      "~encore/*": ["./encore.gen/*"]
+      "~encore/*": ["./encore.gen/*"],
+      "@utils/*": ["./modules/utils/*"]
     },
 
     /* Workspace Settings */

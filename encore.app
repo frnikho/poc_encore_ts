@@ -6,7 +6,7 @@
 	"build": {
     		"docker": {
     			"bundle_source": true,
-    			"base_image": "oven/bun:1.2.5-slim",
+    			"base_image": "oven/bun:1.2.2-slim",
     		}
     	},
     "experiments": ["bun-runtime"]

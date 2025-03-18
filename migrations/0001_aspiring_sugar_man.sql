@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "updated_by" SET DEFAULT NULL;

@@ -15,5 +15,10 @@
         }
       }
     }
-  ]
+  ],
+  "secrets": {
+    "REDIS_URL": {
+      "$env": "REDIS_URL"
+    }
+  }
 }

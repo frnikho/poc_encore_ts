@@ -1,9 +1,68 @@
 {
-  "id": "0d0380ec-a465-42f4-9ed2-adc9608119b4",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "864bd205-d358-47bb-8e0f-90cbd2ec32bd",
+  "prevId": "b930b830-f668-40e3-a25b-790bd631dfea",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.login_history": {
+      "name": "login_history",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "auth_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "login_history_userId_users_id_fk": {
+          "name": "login_history_userId_users_id_fk",
+          "tableFrom": "login_history",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -43,7 +102,7 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false,
-          "default": "''"
+          "default": "NULL"
         },
         "created_at": {
           "name": "created_at",
@@ -96,7 +155,16 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.auth_status": {
+      "name": "auth_status",
+      "schema": "public",
+      "values": [
+        "success",
+        "failed"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
