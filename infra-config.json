@@ -19,7 +19,7 @@
   "pubsub": [
     {
       "type": "nsq",
-      "hosts": "nsq:4150",
+      "hosts": "encore-nsq-7miodc:4150",
       "topics": {
         "login": {
           "name": "login",
@@ -30,7 +30,7 @@
           }
         },
         "register": {
-          "name": "register",
+          "name": "register"
         }
       }
     }
