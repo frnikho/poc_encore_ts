@@ -19,7 +19,7 @@
   "pubsub": [
     {
       "type": "nsq",
-      "hosts": "encore-nsq-7miodc:4150",
+      "hosts": "nsqd:4150",
       "topics": {
         "login": {
           "name": "login",
