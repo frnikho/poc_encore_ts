@@ -1,8 +1,14 @@
 import {Subscription} from "encore.dev/pubsub";
 import {LoginEvent, logins} from "./auth.topic";
-import orm from '@utils/encore/db';
 import {authHistory} from "./auth.schema";
 import log from "encore.dev/log";
+import {SQLDatabase} from "encore.dev/storage/sqldb";
+import {DbPool} from "@utils/encore/db";
+import {drizzle} from "drizzle-orm/node-postgres";
+
+/*
+export const db = new SQLDatabase("encore_db");
+const orm: DbPool = drizzle(db.connectionString);
 
 new Subscription(logins, "login_history", {
   handler: async (evt: LoginEvent) => {
@@ -13,4 +19,4 @@ new Subscription(logins, "login_history", {
       status: evt.status,
     })
   }
-});
+});*/

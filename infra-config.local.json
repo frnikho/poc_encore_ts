@@ -5,6 +5,11 @@
     "description": "My infrastructure",
     "version": "1.0.0"
   },
+  "graceful_shutdown": {
+    "handlers": 10,
+    "shutdown_hooks": 10,
+    "total": 20
+  },
   "sql_servers": [
     {
       "host": "db:5432",
@@ -16,6 +21,11 @@
       }
     }
   ],
+  "metrics": {
+    "type": "prometheus",
+    "collection_interval": 1,
+    "remote_write_url": "http://victoriametrics:8428/api/v1/write"
+  },
   "pubsub": [
     {
       "type": "nsq",

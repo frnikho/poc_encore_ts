@@ -1,4 +1,3 @@
 import {Service} from "encore.dev/service";
 
-export default new Service("users");
-
+export default new Service("core");

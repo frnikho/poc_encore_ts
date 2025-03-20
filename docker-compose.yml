@@ -51,6 +51,23 @@ services:
       - nsqlookupd
     ports:
       - "4171"
+  victoriametrics:
+    image: victoriametrics/victoria-metrics
+    command:
+      - "--storageDataPath=/data"
+      - "--httpListenAddr=:8428"
+    ports:
+      - "8428:8428"
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+  node:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
 
 volumes:
   db_data:

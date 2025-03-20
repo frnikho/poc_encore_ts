@@ -8,7 +8,8 @@
     "types": ["node", "bun-types"],
     "paths": {
       "~encore/*": ["./encore.gen/*"],
-      "@utils/*": ["./modules/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@core/*": ["./src/modules/core/*"]
     },
 
     /* Workspace Settings */

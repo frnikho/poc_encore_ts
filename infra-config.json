@@ -5,17 +5,31 @@
     "description": "My infrastructure",
     "version": "1.0.0"
   },
+  "graceful_shutdown": {
+    "handlers": 10,
+    "shutdown_hooks": 10,
+    "total": 20
+  },
   "sql_servers": [
     {
       "host": "encore-db-kes2m4:5432",
       "databases": {
         "encore_db": {
+          "max_connections": 100,
+          "min_connections": 10,
           "username": "encore_usr",
           "password": {"$env": "DB_PASSWORD"}
         }
       }
     }
   ],
+  "metrics": {
+    "type": "prometheus",
+    "collection_interval": 30,
+    "remote_write_url": {
+      "$env": "PROMETHEUS_REMOTE_WRITE_URL"
+    }
+  },
   "pubsub": [
     {
       "type": "nsq",

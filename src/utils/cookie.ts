@@ -1,4 +1,5 @@
 import {Header} from "encore.dev/api";
+import {err, ok, Result} from "neverthrow";
 
 export type CookieSameSite = 'None' | 'Strict' | 'Lax';
 
@@ -24,5 +25,22 @@ export const setCookie = (cookie: string, options?: CookieOptions): Header<"Set-
     options?.secure ? "Secure" : ""
   ].filter(Boolean);
 
-  return `Set-Cookie: ${cookieParts.join("; ")}`;
+  return cookieParts.join("; ");
+
+}
+
+export const getCookies = (cookie: Header<"Cookie">): [string, string][] => {
+  return cookie.split(";").map((cookie) => {
+    const [key, value] = cookie.split("=");
+    return [key.trim(), value.trim()];
+  });
+}
+
+export const getCookie = (cookie: Header<"Cookie">, key: string): Result<string, string> => {
+  const cookies = getCookies(cookie);
+  const findCookie = cookies.find(([cookieKey]) => cookieKey === key);
+  if (findCookie) {
+    return ok(cookie[1])
+  }
+  return err("Cookie not found");
 }

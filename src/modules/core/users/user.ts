@@ -1,8 +1,11 @@
 import {api} from "encore.dev/api";
 import {user} from "./user.schema";
 import log from "encore.dev/log";
-import orm from "@utils/encore/db";
 import {createId} from "@utils/db";
+import { getAuthData } from "~encore/auth";
+import {SQLDatabase} from "encore.dev/storage/sqldb";
+import {DbPool} from "@utils/encore/db";
+import {drizzle} from "drizzle-orm/node-postgres";
 
 interface Response {
   data: {
@@ -12,6 +15,9 @@ interface Response {
     lastname: string;
   }[];
 }
+
+export const db = new SQLDatabase("encore_db");
+const orm: DbPool = drizzle(db.connectionString);
 
 export const get = api({expose: true, auth: false, method: 'GET'},
   async (): Promise<Response> => {
@@ -56,11 +62,11 @@ function timeout(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const test = api({expose: true, method: 'POST', path: '/user.test'}, async () => {
-  log.debug("Starting blocking test");
+export const testUser = api({expose: true, auth: true, method: 'POST', path: '/user.test'}, async () => {
+  /*log.debug("Starting blocking test");
   await timeout(10000)
   log.debug("Finish blocking test");
   return {
     done: true
-  }
+  }*/
 })

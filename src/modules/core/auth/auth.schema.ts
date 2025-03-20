@@ -1,6 +1,6 @@
 import {pgEnum, pgTable} from "drizzle-orm/pg-core";
 import {uid} from "@utils/db";
-import {user} from "../users/user.schema";
+import {user} from "@core/users";
 import * as p from 'drizzle-orm/pg-core'
 
 export const authStatus = pgEnum("auth_status", ["success", "failed"]);
